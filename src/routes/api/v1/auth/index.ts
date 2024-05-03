@@ -2,7 +2,15 @@ import { Router } from "express";
 
 import { BadRequestError } from "../../../../errors";
 
+import crypto from 'node:crypto';
+import State from "../../../../services/state";
+
 const authRouter = Router();
+
+
+const ALLOWED_CLIENTS = [
+    '1234'
+]
 
 
 
@@ -10,27 +18,43 @@ authRouter.post('/register', (req, res) => {
     res.send('Hello World!');
 })
 
-authRouter.post('/login', (req, res) => {
-    res.send('Hello World!');
-})
-
-
 authRouter.post('/logout', (req, res) => {
     res.send('Hello World!');
 })
 
 
-authRouter.post('/authorize', (req, res , next) => {
+authRouter.post('/authorize', (req, res) => {
     
   
-    const { client_id, response_type, redirect_uri, state , code_challenge } = req.query;
+    const { client_id, redirect_uri_callback, state , code_challenge , code_challenge_method } = req.query as {
+        client_id: string;
+        redirect_uri_callback: string;
+        state: string;
+        code_challenge: string;
+        code_challenge_method: string;
+    
+    };
 
-    if (!client_id || !response_type || !redirect_uri || !state || !code_challenge) {
-        throw new BadRequestError("The request is missing a required parameter, includes an invalid parameter value, includes a parameter more than once, or is otherwise malformed.")
-    }
+    // if(!ALLOWED_CLIENTS.includes(client_id as string)) {
+    //     throw new BadRequestError("Client is not allowed to access this resource");
+    // }
 
-    res.send('Hello World!');
+    // if(!client_id || !redirect_uri_callback || !state || !code_challenge || !code_challenge_method) {
+    //     throw new BadRequestError("Missing required parameters");
+    // }
+
+
+    State.addState(state as string, {
+        code_challenge,
+        code_challenge_method,
+        redirect_uri_callback
+    })
+    
+    return res.render(`pages/login`);
+
 })
+
+
 
 authRouter.post('/token', (req, res) => {
     res.send('Hello World!');
