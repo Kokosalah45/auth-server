@@ -1,19 +1,17 @@
-
-import  {Transporter, createTransport} from 'nodemailer'
+import { Transporter, createTransport } from "nodemailer";
 class Mailer {
   private transporter: Transporter;
 
   constructor() {
     this.transporter = createTransport({
-      service: 'Gmail',
+      service: "Gmail",
       host: "smtp.gmail.com",
       port: 465,
       secure: true,
-      auth  : {
+      auth: {
         user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-      } 
+        pass: process.env.EMAIL_PASS,
+      },
     });
-}
-
+  }
 }

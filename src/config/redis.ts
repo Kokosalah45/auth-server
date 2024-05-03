@@ -1,17 +1,13 @@
-import { createClient , RedisClientType} from 'redis';
+import { createClient, RedisClientType } from "redis";
 
-let client : RedisClientType | null = null
+let client: RedisClientType | null = null;
 
+export default async function getRedisInstance() {
+  if (client !== null) return client;
 
+  client = createClient();
 
-export default async function getRedisInstance () {
+  await client.connect();
 
-    if(client !== null) return client;
-
-    client = createClient();
-
-    await client.connect()
-
-    return client;
-    
+  return client;
 }

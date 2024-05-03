@@ -23,7 +23,7 @@ app.use(cors());
 app.use(
   helmet({
     xPoweredBy: false,
-  })
+  }),
 );
 
 app.use("/api/v1", V1Router);
@@ -41,7 +41,7 @@ app.use(
         stack: process.env.NODE_ENV === "DEV" ? err.stack : undefined,
       },
     });
-  }
+  },
 );
 
 app.listen(3000, () => {
