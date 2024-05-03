@@ -23,16 +23,25 @@ app.use(cors());
 app.use(
   helmet({
     xPoweredBy: false,
-  }),
+  })
 );
 
 app.use("/api/v1", V1Router);
+
+app.get("/", (req, res) => {
+  res.redirect("/login");
+});
+
+app.get("/login", (req, res) => {
+  res.render("pages/login");
+});
 
 app.use(
   (err: CustomServerError, req: Request, res: Response, next: NextFunction) => {
     const error =
       err instanceof CustomServerError ? err : new CustomServerError();
 
+    console.log({ ERRRORRR: error });
     res.status(error.statusCode).json({
       error: {
         code: error.error_code,
@@ -41,7 +50,7 @@ app.use(
         stack: process.env.NODE_ENV === "DEV" ? err.stack : undefined,
       },
     });
-  },
+  }
 );
 
 app.listen(3000, () => {

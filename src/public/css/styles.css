@@ -1,0 +1,44 @@
+body {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 300px;
+  min-height: 25vh;
+  justify-content: center;
+}
+
+.form input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.form button {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f4f4f4;
+  cursor: pointer;
+}
+
+.form button:hover {
+  background-color: #e4e4e4;
+}
+
+.form button:active {
+  background-color: #d4d4d4;
+}
+
+.hidden {
+  display: none;
+}
