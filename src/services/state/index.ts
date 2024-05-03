@@ -1,27 +1,31 @@
+import getRedisInstance from "../../config/redis";
+
 type StateData = {
   code_challenge: string;
   code_challenge_method: string;
   redirect_uri_callback: string;
 };
 
-export default class State {
-  static stateMap: {
-    [key: string]: StateData;
-  } = {};
+export default class StateManagerService {
   static stateTimeout = 60000;
 
-  static addState(state: string, stateData: StateData) {
-    State.stateMap[state] = stateData;
-    setTimeout(() => {
-      delete State.stateMap[state];
-    }, State.stateTimeout);
+  static async addState(state: string, stateData: StateData) {
+    const redis = await getRedisInstance();
+
+    redis.set(state, JSON.stringify(stateData), {
+      EX: this.stateTimeout / 1000,
+    });
   }
 
-  static getState(state: string) {
-    return State.stateMap[state];
+  static async getState(state: string) {
+    const redis = await getRedisInstance();
+    const stateData = await redis.get(state);
+    if (!stateData) return null;
+    return JSON.parse(stateData);
   }
 
-  static deleteState(state: string) {
-    delete State.stateMap[state];
+  static async deleteState(state: string) {
+    const redis = await getRedisInstance();
+    redis.del(state);
   }
 }

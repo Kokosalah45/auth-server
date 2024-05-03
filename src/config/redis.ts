@@ -9,5 +9,10 @@ export default async function getRedisInstance() {
 
   await client.connect();
 
+  // set states map
+  client.set("states", JSON.stringify({}));
+  // set otp map
+  client.set("otp", JSON.stringify({}));
+
   return client;
 }

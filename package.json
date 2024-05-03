@@ -5,8 +5,8 @@
   "main": "./src/main.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node ./src/main.ts",
-    "dev": "NODE_ENV=DEV ts-node-dev --transpile-only --respawn ./src/main.ts"
+    "start": "ts-node --env-file=.env ./src/main.ts",
+    "dev": "ts-node-dev --transpile-only --respawn --env-file=.env ./src/main.ts"
   },
   "keywords": [],
   "author": "",
