@@ -8,11 +8,7 @@ export default async function getDB(): Promise<Client> {
   if (db !== null) return db;
 
   const client = new Client({
-    user: config.db.user,
-    host: config.db.host,
-    database: config.db.database,
-    password: config.db.password,
-    port: +(config.db.port || 5432),
+    connectionString: config.db.url,
   });
 
   await client.connect();

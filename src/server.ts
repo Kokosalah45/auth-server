@@ -12,6 +12,8 @@ const app = express();
 
 const srcPath = __dirname;
 
+console.log({ srcPath });
+
 app.set("view engine", "ejs");
 app.set("views", path.join(srcPath, "views"));
 app.use(express.static(path.join(srcPath, "public")));
@@ -47,14 +49,14 @@ app.use(
         code: error.error_code,
         message: error.name,
         description: error.message,
-        stack: process.env.NODE_ENV === "DEV" ? err.stack : undefined,
+        stack: process.env.NODE_ENV === "development" ? err.stack : undefined,
       },
     });
   }
 );
 
-app.listen(3000, () => {
-  console.log("Server is running on port 3000");
+app.listen(process.env.PORT, () => {
+  console.log(`Server is running on port ${process.env.PORT}`);
   getDB()
     .then(() => {
       console.log("Database connected");

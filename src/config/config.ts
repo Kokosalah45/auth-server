@@ -12,6 +12,10 @@ const config = {
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
+    url: process.env.DATABASE_URL,
+  },
+  redis: {
+    url: process.env.REDIS_URL,
   },
   jwtSecret: process.env.JWT_SECRET,
 };

@@ -22,6 +22,9 @@ authRouter.get("/authorize", async (req, res) => {
     code_challenge: string;
     code_challenge_method: string;
   };
+
+  console.log({ query });
+
   const stateData = await StateManagerService.getState(query.state);
 
   if (!stateData || stateData?.isOTPVerified !== true) {
