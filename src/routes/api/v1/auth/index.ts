@@ -1,12 +1,12 @@
 import { Router } from "express";
 import crypto from "node:crypto";
 
-import { BadRequestError, CustomServerError } from "@/errors";
-import StateManagerService from "@/services/state";
-import getRedisInstance from "@/config/redis";
+import { BadRequestError, CustomServerError } from "../../../../errors";
+import StateManagerService from "../../../../services/state";
+import getRedisInstance from "../../../../config/redis";
 import { SignJWT } from "jose";
-import getDB from "@/config/db";
-import config from "@/config/config";
+import getDB from "../../../../config/db";
+import config from "../../../../config/config";
 
 const authRouter = Router();
 

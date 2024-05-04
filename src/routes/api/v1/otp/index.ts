@@ -1,9 +1,9 @@
 import { Router } from "express";
-import Mailer from "@/services/mailer";
-import { CustomServerError } from "@/errors";
-import getRedisInstance from "@/config/redis";
-import getDB from "@/config/db";
-import StateManagerService from "@/services/state";
+import Mailer from "../../../../services/mailer";
+import { CustomServerError } from "../../../../errors";
+import getRedisInstance from "../../../../config/redis";
+import getDB from "../../../../config/db";
+import StateManagerService from "../../../../services/state";
 
 const OTPRouter = Router();
 
