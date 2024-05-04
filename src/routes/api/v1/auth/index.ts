@@ -1,14 +1,12 @@
 import { Router } from "express";
-
-import { BadRequestError, CustomServerError } from "../../../../errors";
-
 import crypto from "node:crypto";
-import StateManagerService from "../../../../services/state";
-import getRedisInstance from "../../../../config/redis";
 
+import { BadRequestError, CustomServerError } from "@/errors";
+import StateManagerService from "@/services/state";
+import getRedisInstance from "@/config/redis";
 import { SignJWT } from "jose";
-import getDB from "../../../../config/db";
-import config from "../../../../config/config";
+import getDB from "@/config/db";
+import config from "@/config/config";
 
 const authRouter = Router();
 
@@ -25,6 +23,7 @@ authRouter.get("/authorize", async (req, res) => {
     code_challenge_method: string;
   };
   const stateData = await StateManagerService.getState(query.state);
+
   if (!stateData || stateData?.isOTPVerified !== true) {
     return res.redirect(
       `/login?state=${query.state}&client_id=${query.client_id}&redirect_uri_callback=${query.redirect_uri_callback}&code_challenge=${query.code_challenge}&code_challenge_method=${query.code_challenge_method}`

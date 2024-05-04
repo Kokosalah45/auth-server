@@ -1,4 +1,4 @@
-import getRedisInstance from "../../config/redis";
+import getRedisInstance from "@/config/redis";
 
 type StateData = {
   code_challenge: string;
